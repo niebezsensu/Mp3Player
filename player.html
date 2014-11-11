@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8">
+		<title>Mp3 Player</title>
+		<link rel="stylesheet" href="css/player.css" type="text/css"/>
+
+		<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+
+	</head>
+	<body>
+
+
+
+		<ul id="im-list">
+			<li><a><img id="alb1" src="img/amelie.jpeg" alt="Amelie" width="160" height="160" onclick="playAndMove(1)"></a></li>
+			<li><a><img id="alb2" src="img/bridge.jpeg" alt="Bridge" width="160" height="160" onclick="playAndMove(2)"></a></li>
+			<li><a><img id="alb3" src="img/jesse.jpeg" alt="Jesse" width="160" height="160" onclick="playAndMove(3)"></a></li>
+			<li><a><img id="alb4" src="img/lily.jpeg" alt="Lily" width="160" height="160" onclick="playAndMove(4)"></a></li>
+			<li><a><img id="alb5" src="img/lumineers.jpeg" alt="Lumineers" width="160" height="160" onclick="playAndMove(5)"></a></li>
+			<li><a><img id="alb6" src="img/tunng.jpeg" alt="Tunng" width="160" height="160" onclick="playAndMove(6)"></a></li>
+		</ul>
+
+		<div id="img-placeholder"><img id="ph" src="img/play.png" width="400" height="400"></div>
+
+		<div id="title"></div>
+
+		<audio id="music" preload="true">
+			<source src="music/greenday.mp3">
+		</audio>
+
+		<div id="audioplayer">
+			<button id="pButton" class="play" onclick="play()"></button>
+			<div id="timeline">
+			  	<div id="playhead"></div>
+	  		</div>
+		</div> 
+
+		<script type="text/javascript" src="js/player.js"></script>
+	</body>
+
+</html>

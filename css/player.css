@@ -1,0 +1,101 @@
+body{
+	background-image: url("../img/backgr.jpg");
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	background-position: fixed;
+}
+
+#title{
+	font-size: 2em;
+	font-style: bold;
+	text-align: center;
+	float: right;
+	clear: right;
+	margin-right: 1em;
+	font-family: 'Indie Flower', cursive;
+}
+
+#img-placeholder{
+	margin: 1em;
+	width: 400px;
+	height: 400px;
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+	border-style: solid;
+	border-width: 1px;
+	float: right;
+}
+
+#ph{
+	opacity: 0.1;
+}
+
+#im-list{
+	width: 50%;
+  	display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: wrap; 
+    float: left;
+    list-style-type:none;
+ }
+
+
+
+img{
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+ul img{
+	margin: 0.5em;
+}
+
+ul li a:hover{
+	opacity: 0.6;
+}
+
+ul img:hover{
+	opacity: 0.6;
+}
+
+/*-----------------------------*/
+
+#audioplayer{
+	width: 480px;
+	height: 60px;
+	margin: 50px auto auto auto;
+	border: solid;
+	clear: both;
+}
+
+#pButton{
+    height:60px; 
+    width: 60px;
+    border: none;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    float:left;
+    outline:none;
+}
+
+.play{background: url('../img/play.png') ;}
+.pause{background: url('../img/pause.png') ;}
+
+#timeline{
+	width: 400px;
+	height: 20px;
+	margin-top: 20px;
+	float: left;
+	border-radius: 15px;
+	background: rgba(0,0,0,.3);
+  
+}
+#playhead{
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	margin-top: 1px;
+	background: rgba(0, 0, 0,1);
+
+}
+
