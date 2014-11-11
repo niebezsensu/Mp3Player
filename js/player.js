@@ -22,13 +22,27 @@ function playSong(nr){
 	tit.innerHTML = title;
 }
 
+
+var f = document.getElementById('alb1');
+f.addEventListener('click', function(){
+	var newParent = document.getElementById('img-placeholder');
+	var prev = newParent.firstElementChild;
+	newParent.removeChild(prev);
+	newParent.appendChild(f);
+
+
+    f.style.marginLeft = "400px";
+    f.style.marginTop = "400px";
+
+},false); 
+
 function moveToPh(nr){
 	var newParent = document.getElementById('img-placeholder');
 	var contAll = document.getElementById('im-list');
 
 	switch(nr){
-		case 1: elem = "alb1";
-				break;
+		//case 1: elem = "alb1";
+				//break;
 		case 2: elem = "alb2";
 				break;
 		case 3: elem = "alb3";

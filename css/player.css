@@ -40,13 +40,18 @@ body{
  }
 
 
-
 img{
 	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
+#alb1{
+	margin: 0.5em;
+	-webkit-transition: all 1s; 
+}
+
 ul img{
 	margin: 0.5em;
+	-webkit-transition: all 1s; 
 }
 
 ul li a:hover{
