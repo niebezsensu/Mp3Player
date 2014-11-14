@@ -3,6 +3,7 @@ body{
 	background-repeat: no-repeat;
 	-webkit-background-size: cover;
 	background-position: fixed;
+
 }
 
 #title{
@@ -15,14 +16,14 @@ body{
 	font-family: 'Indie Flower', cursive;
 }
 
-#img-placeholder{
-	margin: 1em;
-	width: 400px;
-	height: 400px;
-	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
-	border-style: solid;
-	border-width: 1px;
-	float: right;
+
+
+
+#lis{
+
+	/*float: left;*/
+	width: 50%;
+	/*margin-left: 2em;*/
 }
 
 #ph{
@@ -30,37 +31,94 @@ body{
 }
 
 #im-list{
+	width: 70%;
+	/*text-align: center;*/
+/*	margin-right: auto;
+	margin-left: auto;*/
+	position: relative;
+	/*margin: 1em;
+	position: absolute;
 	width: 50%;
-  	display: flex;
+	display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    self-align: ;
     flex-wrap: wrap; 
     float: left;
-    list-style-type:none;
+    list-style-type:none;*/
  }
 
 
-img{
+#alb1{
+	/*margin: 0.5em;
+	-webkit-transition: all 1s; */
+}
+
+#alb1, #alb2, #alb3, #alb4, #alb5, #alb6{
 	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+	/*margin: 0.5em;*/
+	-webkit-transition: all 1s; 
+	opacity: 0.6;
+	position: absolute;
+	margin-top: 40px;
 }
 
 #alb1{
-	margin: 0.5em;
-	-webkit-transition: all 1s; 
+	margin-left: 40px;
 }
 
-ul img{
-	margin: 0.5em;
-	-webkit-transition: all 1s; 
+#alb2{
+	margin-left: 220px;
 }
 
-ul li a:hover{
+#alb3{
+	margin-left: 400px;
+}
+
+#alb4{
+	margin-left: 40px;
+	margin-top: 220px
+}
+
+#alb5{
+	margin-left: 220px;
+	margin-top: 220px;
+}
+
+#alb6{
+	margin-left: 400px;
+	margin-top: 220px;
+}
+
+#img-placeholder{
+
+	margin-left: 600px;
+	width: 340px;
+	height: 340px;
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+	border-style: solid;
+	border-width: 1px;
+	/*float: right;
+	margin-right: 2em;*/
+	top: 40px;
+	/*right: 2em;*/
+	position: absolute;
+	background-image: url('../img/play.png');
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	background-position: fixed;
+	opacity: 0.1;
+	z-index: 0;
+}
+
+img{
+
+}
+
+/*img:hover{
 	opacity: 0.6;
-}
+}*/
 
-ul img:hover{
-	opacity: 0.6;
-}
 
 /*-----------------------------*/
 
@@ -70,6 +128,7 @@ ul img:hover{
 	margin: 50px auto auto auto;
 	border: solid;
 	clear: both;
+	visibility: hidden;
 }
 
 #pButton{

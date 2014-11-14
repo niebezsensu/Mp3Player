@@ -23,18 +23,57 @@ function playSong(nr){
 }
 
 
-var f = document.getElementById('alb1');
-f.addEventListener('click', function(){
-	var newParent = document.getElementById('img-placeholder');
-	var prev = newParent.firstElementChild;
-	newParent.removeChild(prev);
-	newParent.appendChild(f);
+var al1 = document.getElementById('alb1');
+al1.addEventListener('click', function(){moveTo(al1)}, false); 
+
+var al2 = document.getElementById('alb2');
+al2.addEventListener('click', function(){moveTo(al2)}, false); 
+
+var al3 = document.getElementById('alb3');
+al3.addEventListener('click', function(){moveTo(al3)}, false); 
+
+var al4 = document.getElementById('alb4');
+al4.addEventListener('click', function(){moveTo(al4)}, false); 
+
+var al5 = document.getElementById('alb5');
+al5.addEventListener('click', function(){moveTo(al5)}, false); 
+
+var al6 = document.getElementById('alb6');
+al6.addEventListener('click', function(){moveTo(al6)}, false); 
+
+var current = null;
+var currTop = 0;
+var currLeft = 0;
+
+function moveTo(el){
+	var pholder = document.getElementById('img-placeholder');
+
+	if(current != null){
+		current.style.marginLeft = currLeft + 'px';
+    	current.style.marginTop = currTop + 'px';
+
+    	current.style.width = '160px';
+    	current.style.height = '160px';
+	}
+
+    el.style.marginLeft = pholder.offsetLeft + 'px';
+    el.style.marginTop = pholder.offsetTop + 'px';
+
+    el.style.width = pholder.offsetWidth + 'px';
+    el.style.height = pholder.offsetHeight + 'px';
+
+    el.style['opacity'] = '1';
+    el.style['z-index'] = '1';
+
+    current = el;
+    currTop = el.offsetTop;
+    currLeft = el.offsetLeft;
+
+     //f.style['margin-right'] = '2em';
 
 
-    f.style.marginLeft = "400px";
-    f.style.marginTop = "400px";
 
-},false); 
+}
 
 function moveToPh(nr){
 	var newParent = document.getElementById('img-placeholder');
