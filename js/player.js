@@ -1,29 +1,89 @@
+$(document).ready(function () {
+    //your code here
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    var audio = new Audio(),
+        context = new AudioContext(),
+        panner = context.createPanner(),
+        onError = function (e) {
+            console.log('There was an error!! ', e);
+        },
+        source;
+//  set up audio graph
+    audio.src = "music/greenday.mp3";
+    source = context.createMediaElementSource(audio);
+    context.listener.setPosition(0, 0, 0);
+    panner.setPosition(0, 0, 1);
+    panner.panningModel = 'equalpower';
+    source.connect(panner);
+    panner.connect(context.destination);
 
-function playSong(nr){
-	var title = " ";
-	switch(nr){
-		case 1: title = "Amelie";
-				break;
-		case 2: title = "Between Us";
-				break;
-		case 3: title = "The Assassination of Jesse James";
-				break;
-		case 4: title = "Lily & Madeleine";
-				break;
-		case 5: title = "The Lumineers";
-				break;
-		case 6: title = "...And Then We Saw Land";
-				break;
+    var samples = 32;
 
-		default: break;
-	}
+    //create fft
+    fft = context.createAnalyser();
+    fft.fftSize = samples;
 
-	var tit = document.getElementById("title");
-	tit.innerHTML = title;
-}
+    var setup = false;
+
+    //connect them up into a chain
+    source.connect(fft);
+    fft.connect(context.destination);
+
+    var gfx;
+    function setupCanvas() {
+        var canvas = document.getElementById('canvas');
+        gfx = canvas.getContext('2d');
+        webkitRequestAnimationFrame(update);
+    }
+
+    function update() {
+        webkitRequestAnimationFrame(update);
+        if(!setup) return;
+        gfx.clearRect(0,0,340,100);
+        gfx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+        gfx.fillRect(0,0,340,100);
+
+        var data = new Uint8Array(samples);
+        fft.getByteFrequencyData(data);
+        gfx.fillStyle = 'hsla(200, 20%, 40%, 0.6)';
+        for(var i=0; i<data.length; i++) {
+            //trzeci parametr to grubosc paskow dlugosc
+            gfx.fillRect(i*15,100+128-data[i],12,75);
+        }
+
+    }
+
+//playing or pausing
+    $("#button").click(function () {
+
+        if (source.mediaElement.paused) {
+            source.mediaElement.play();
+            //renderFrame();
+
+        } else {
+            source.mediaElement.pause();
+        }
+    });
+
+//  2D Panning
+
+    $("#pan").change(function() {
+        var x = document.getElementById('pan').valueAsNumber,
+            y = 0,
+            z = 1 - Math.abs(x),
+            parent = this.parentNode;
+        console.log(x, y, z);
+        panner.setPosition(x, y, z);
+        //  update labels
+    });
+
+    $("#volume").change(function() {
+        source.mediaElement.volume = this.value;
+    });
 
 
-var al1 = document.getElementById('alb1');
+
+  var al1 = document.getElementById('alb1');
 al1.addEventListener('click', function(){moveTo(al1)}, false); 
 
 var al2 = document.getElementById('alb2');
@@ -77,152 +137,34 @@ function moveTo(el){
     currTop = el.offsetTop;
     currLeft = el.offsetLeft;
 
+    playMusic(title);
+
+
 }
 
-function moveToPh(nr){
-	var newParent = document.getElementById('img-placeholder');
-	var contAll = document.getElementById('im-list');
-
-	switch(nr){
-		//case 1: elem = "alb1";
-				//break;
-		case 2: elem = "alb2";
-				break;
-		case 3: elem = "alb3";
-				break;
-		case 4: elem = "alb4";
-				break;
-		case 5: elem = "alb5";
-				break;
-		case 6: elem = "alb6";
-				break;
-	}	
-	var elem = document.getElementById(elem);
-	var prev = newParent.firstElementChild;
-
-	elem.style.width = "400px";
-	elem.style.height = "400px";
-
-	prev.style.width = "160px";
-	prev.style.height = "160px";
-
-	console.log("nazwa: "+prev.getAttribute('id'));
-
-	if(prev.getAttribute('id') == "ph"){
-		newParent.removeChild(prev);
-	}else{
-		contAll.appendChild(prev);
+function playMusic(titl){
+	console.log("czy amelia: "+(titl == "Amelie"));
+	console.log("czy betw: "+(titl == "Between Us"));
+	console.log("czy Lily & Madeleine: "+(titl == "Lily & Madeleine"));
+	switch(titl){
+		case "Amelie": audio.src = "music/amelie.mp3"; console.log("podstawione"); break;
+		case "Between Us": audio.src = "music/bridge.mp3"; break;
+		case "The Assassination of Jesse James": audio.src = "music/jesse.mp3"; break;
+		case "Lily & Madeleine": audio.src = "music/sea.mp3"; break;
+		case "The Lumineers": audio.src = "music/stub.mp3"; break;
+		case "...And Then We Saw Land": audio.src = "music/hustle.mp3"; break;
+		default: break;
 	}
 
-	newParent.appendChild(elem);
-	//newParent.insertBefore(elem, newParent.firstChild);
-	
+	source.mediaElement.load();
+    source.mediaElement.play();
+    setup = true;
+    setupCanvas();
+
 }
 
-function playAndMove(nr){
-	playSong(nr);
-	moveToPh(nr);
-}
-
-//----------------------
+ });
 
 
-
-//----------------
-
-var music = document.getElementById('music'); // id for audio element
-var duration; // Duration of audio clip
-var pButton = document.getElementById('pButton'); // play button
-
-var playhead = document.getElementById('playhead'); // playhead
-
-var timeline = document.getElementById('timeline'); // timeline
-// timeline width adjusted for playhead
-var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
-
-// timeupdate event listener
-music.addEventListener("timeupdate", timeUpdate, false);
-
-//Makes timeline clickable
-timeline.addEventListener("click", function (event) {
-	moveplayhead(event);
-	music.currentTime = duration * clickPercent(event);
-}, false);
-
-// returns click as decimal (.77) of the total timelineWidth
-function clickPercent(e) {
-	return (event.pageX - timeline.offsetLeft) / timelineWidth;
-}
-
-// Makes playhead draggable 
-playhead.addEventListener('mousedown', mouseDown, false);
-window.addEventListener('mouseup', mouseUp, false);
-
-// Boolean value so that mouse is moved on mouseUp only when the playhead is released 
-var onplayhead = false;
-// mouseDown EventListener
-function mouseDown() {
-	onplayhead = true;
-	window.addEventListener('mousemove', moveplayhead, true);
-	music.removeEventListener('timeupdate', timeUpdate, false);
-}
-// mouseUp EventListener
-// getting input from all mouse clicks
-function mouseUp(e) {
-	if (onplayhead == true) {
-		moveplayhead(e);
-		window.removeEventListener('mousemove', moveplayhead, true);
-		// change current time
-		music.currentTime = duration * clickPercent(e);
-		music.addEventListener('timeupdate', timeUpdate, false);
-	}
-	onplayhead = false;
-}
-// mousemove EventListener
-// Moves playhead as user drags
-function moveplayhead(e) {
-	var newMargLeft = e.pageX - timeline.offsetLeft;
-	if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
-		playhead.style.marginLeft = newMargLeft + "px";
-	}
-	if (newMargLeft < 0) {
-		playhead.style.marginLeft = "0px";
-	}
-	if (newMargLeft > timelineWidth) {
-		playhead.style.marginLeft = timelineWidth + "px";
-	}
-}
-
-// timeUpdate 
-// Synchronizes playhead position with current point in audio 
-function timeUpdate() {
-	var playPercent = timelineWidth * (music.currentTime / duration);
-	playhead.style.marginLeft = playPercent + "px";
-	if (music.currentTime == duration) {
-		pButton.className = "";
-		pButton.className = "play";
-	}
-}
-
-//Play and Pause
-function play() {
-	// start music
-	if (music.paused) {
-		music.play();
-		// remove play, add pause
-		pButton.className = "";
-		pButton.className = "pause";
-	} else { // pause music
-		music.pause();
-		// remove pause, add play
-		pButton.className = "";
-		pButton.className = "play";
-	}
-}
-
-// Gets audio file duration
-music.addEventListener("canplaythrough", function () {
-	duration = music.duration;  
-}, false);
 
 

@@ -111,64 +111,80 @@ body{
 	z-index: 0;
 }
 
+
+
 #title{
 	position: absolute;
 	margin-left: 600px;
-	margin-top: 400px;
+	margin-top: 390px;
 	width: 50%;
 }
 
-img{
-
-}
-
-/*img:hover{
-	opacity: 0.6;
-}*/
-
-
-/*-----------------------------*/
-
-#audioplayer{
+#things{
 	position: absolute;
-	width: 480px;
-	height: 60px;
-	margin-top: 500px;
-	margin-left: 40px;
-	border: solid;
-	/*clear: both;*/
-	visibility: visible;
+	margin-top: 440px;
 }
 
-#pButton{
-    height:60px; 
-    width: 60px;
-    border: none;
-    background-size: 50% 50%;
-    background-repeat: no-repeat;
-    background-position: center;
-    float:left;
-    outline:none;
+#canvas{
+	background-color: rgba(0, 0, 0, 0.1);
+	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+	margin-left: 600px;
 }
 
-.play{background: url('../img/play.png') ;}
-.pause{background: url('../img/pause.png') ;}
-
-#timeline{
+#pan, #volume{
+	-webkit-appearance: none;
 	width: 400px;
-	height: 20px;
-	margin-top: 20px;
-	float: left;
-	border-radius: 15px;
-	background: rgba(0,0,0,.3);
-  
 }
-#playhead{
-	width: 18px;
-	height: 18px;
-	border-radius: 50%;
-	margin-top: 1px;
-	background: rgba(0, 0, 0,1);
+
+input[type=range]::-webkit-slider-runnable-track {
+    height: 3px;
+    background: #ccc;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 30px;
+    width: 15px;
+    border-radius: 50%;
+    background: hsla(200, 20%, 40%, 0.8);
+    margin-top: -6px;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: white;
+}
+
+#button{
+	position: absolute;
+	margin-left: 670px;
+	margin-top: 110px;
+	border-radius: 200px;
+	border: none;
+	height: 200px;
+    width: 200px;
+	background-color: rgba(0, 0, 5, 0.2);
+	z-index: 2;
+
 
 }
+
+#button:focus{
+	border-radius: 200px;
+	border-style: solid;
+	border-width: 10px;
+	border-color: hsla(200, 20%, 40%, 0.3);
+}
+
+#spans{
+	font-family: 'Indie Flower', cursive;
+	width: 50%;
+	margin-top: -50px;
+	margin-left: 40px;
+}
+
 
